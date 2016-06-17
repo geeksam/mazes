@@ -1,4 +1,5 @@
 require_relative 'cell'
+require_relative 'grid_renderer'
 require 'pp'
 
 class Grid
@@ -61,32 +62,8 @@ class Grid
     end
   end
 
-  def to_s
-    output = "+" + "---+" * cols + "\n"
-
-    each_row do |row|
-      top = "|"
-      bottom = "+"
-
-      row.each do |cell|
-        cell = Cell.new(-1, -1) unless cell
-
-        body = "   "
-        lnk_east = cell.linked?(cell.east)
-        east_boundary = (lnk_east ? " " : "|")
-        top << body << east_boundary
-
-        lnk_south = cell.linked?(cell.south)
-        south_boundary = (lnk_south ? "   " : "---")
-        corner = "+"
-        bottom << south_boundary << corner
-      end
-
-      output << top << "\n"
-      output << bottom << "\n"
-    end
-
-    output
+  def to_s(renderer = GridRenderer::ASCII)
+    renderer.call(self)
   end
 
 end
