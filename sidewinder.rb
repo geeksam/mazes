@@ -1,5 +1,18 @@
+require 'virtus'
 class Sidewinder
-  def self.on(grid, full_dir: :east, run_dir: :south)
+  include Virtus.model
+
+  attribute :grid
+  attribute :run_dir
+  attribute :full_dir
+
+  def self.on(grid, full_dir: :north, run_dir: :east)
+    instance = new(grid: grid, full_dir: full_dir, run_dir: run_dir)
+    instance.carve
+    grid
+  end
+
+  def carve
     grid.each_row do |row|
       run = []
 
@@ -21,7 +34,5 @@ class Sidewinder
         end
       end
     end
-
-    grid
   end
 end
