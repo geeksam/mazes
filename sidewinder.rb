@@ -1,4 +1,5 @@
 require 'virtus'
+
 class Sidewinder
   include Virtus.model
 
