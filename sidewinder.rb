@@ -19,20 +19,40 @@ class Sidewinder
       row.each do |cell|
         run << cell
 
-        at_run_boundary  = cell.send(run_dir).nil?
-        at_full_boundary = cell.send(full_dir).nil?
-        should_close_out = at_run_boundary \
-          || ( !at_full_boundary && rand(2).zero? )
-
-        if should_close_out
-          member = run.sample
-          break_to = member.send(full_dir)
-          member.link(break_to) if break_to
-          run.clear
+        if should_close_out?(run)
+          close_out run
         else
-          cell.link(cell.send(run_dir))
+          continue run
         end
       end
     end
+  end
+
+  def should_close_out?(run)
+    cell = run.last
+    return true  if at_run_boundary?(cell)
+    return false if at_full_boundary?(cell)
+    rand(2).zero?
+  end
+
+  def at_run_boundary?(cell)
+    cell.send(run_dir).nil?
+  end
+
+  def at_full_boundary?(cell)
+    cell.send(full_dir).nil?
+  end
+
+  def close_out(run)
+    member = run.sample
+    break_to = member.send(full_dir)
+    member.link(break_to) if break_to
+    run.clear
+  end
+
+  def continue(run)
+    cell = run.last
+    next_cell = cell.send(run_dir)
+    cell.link next_cell
   end
 end
