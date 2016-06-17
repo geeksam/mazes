@@ -3,8 +3,8 @@ class Sidewinder
   include Virtus.model
 
   attribute :grid
-  attribute :run_dir
-  attribute :full_dir
+  attribute :run_dir  # the direction in which runs extend; will be a continuous corridor
+  attribute :full_dir # the other continuous corridor, for which I lack a better name...
 
   def self.on(grid, full_dir: :north, run_dir: :east)
     instance = new(grid: grid, full_dir: full_dir, run_dir: run_dir)
