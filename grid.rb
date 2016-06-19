@@ -74,5 +74,8 @@ class Grid
     " "
   end
 
+  def background_color_for(cell)
+    nil
+  end
 
 end
