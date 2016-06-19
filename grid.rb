@@ -62,8 +62,12 @@ class Grid
     end
   end
 
-  def to_s(renderer = GridRenderer::ASCII)
-    renderer.call(self)
+  def to_s
+    GridRenderer::ASCII.call(self)
+  end
+
+  def to_png(cell_size: 10)
+    GridRenderer::PNG.call(self)
   end
 
   def contents_of(cell)
