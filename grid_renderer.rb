@@ -33,7 +33,7 @@ module GridRenderer
     private
 
     def east_boundary(cell)
-      body = "   "
+      body = " %s " % grid.contents_of(cell)
       lnk_east = cell.linked?(cell.east)
       east_boundary = (lnk_east ? " " : "|")
       body + east_boundary

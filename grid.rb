@@ -66,4 +66,9 @@ class Grid
     renderer.call(self)
   end
 
+  def contents_of(cell)
+    " "
+  end
+
+
 end
